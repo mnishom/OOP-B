@@ -58,6 +58,12 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Password");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(42, 105, -1, -1));
+
+        txtUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 42, 169, 35));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 306, 10));
 
@@ -68,6 +74,12 @@ public class Login extends javax.swing.JFrame {
             }
         });
         jPanel2.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 186, 97, 43));
+
+        txtPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPassActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 95, 169, 37));
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -84,58 +96,19 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        String user = txtUser.getText();
-        String pass = new String(txtPass.getPassword());
-        try {
-            Connection c = Koneksi.Go();
-            Statement s = c.createStatement();
-            String sql = "SELECT * FROM `users` WHERE username='"+user+"' AND password='"+pass+"';";
-            ResultSet r = s.executeQuery(sql);
-            int status = 0;
-            int id;
-            String fn, us, ps, lv = null;
-            UserProfile up = new UserProfile();
-            while (r.next()) {                 
-                id = r.getInt("id");
-                fn = r.getString("fullname");
-                us = r.getString("username");
-                ps = r.getString("password");
-                lv = r.getString("level");
-                up.setId(id);
-                up.setFullname(fn);
-                up.setUsername(user);
-                up.setPassword(pass);
-                up.setLevel(lv); 
-                
-                status++;
-            }
-            
-            if(status > 0){
-                //Login berhasil
-                JOptionPane.showMessageDialog(this, "Sukses Login");
-                if(lv.equals("kasir")){
-                    this.setVisible(false); 
-                    KasirPage K = new KasirPage();
-                    K.setVisible(true); 
-                }else if(lv.equals("admin")){
-                    this.setVisible(false); 
-                    Admin A = new Admin();
-                    A.setVisible(true); 
-                }else if(lv.equals("owner")){
-                    this.setVisible(false); 
-                    OwnerPage O = new OwnerPage(up);
-                    O.setVisible(true); 
-                }
-            }else {
-                //login gagal
-                JOptionPane.showMessageDialog(this, "GAGAL Login\n"+"Username/Password tidak valid");
-                txtPass.requestFocus();
-            }
-            
-        } catch (SQLException e) {
-        }
+        LoginNow();
         
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
+        // TODO add your handling code here:
+        txtPass.requestFocus();
+    }//GEN-LAST:event_txtUserActionPerformed
+
+    private void txtPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPassActionPerformed
+        // TODO add your handling code here:
+        LoginNow();
+    }//GEN-LAST:event_txtPassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -182,4 +155,57 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+
+    private void LoginNow() {
+        String user = txtUser.getText();
+        String pass = new String(txtPass.getPassword());
+        try {
+            Connection c = Koneksi.Go();
+            Statement s = c.createStatement();
+            String sql = "SELECT * FROM `users` WHERE username='"+user+"' AND password='"+pass+"';";
+            ResultSet r = s.executeQuery(sql);
+            int status = 0;
+            int id;
+            String fn, us, ps, lv = null;
+            UserProfile up = new UserProfile();
+            while (r.next()) {                 
+                id = r.getInt("id");
+                fn = r.getString("fullname");
+                us = r.getString("username");
+                ps = r.getString("password");
+                lv = r.getString("level");
+                up.setId(id);
+                up.setFullname(fn);
+                up.setUsername(user);
+                up.setPassword(pass);
+                up.setLevel(lv); 
+                
+                status++;
+            }
+            
+            if(status > 0){
+                //Login berhasil
+                JOptionPane.showMessageDialog(this, "Sukses Login");
+                if(lv.equals("kasir")){
+                    this.setVisible(false); 
+                    KasirPage K = new KasirPage();
+                    K.setVisible(true); 
+                }else if(lv.equals("admin")){
+                    this.setVisible(false); 
+                    AdminPage A = new AdminPage(up);
+                    A.setVisible(true); 
+                }else if(lv.equals("owner")){
+                    this.setVisible(false); 
+                    OwnerPage O = new OwnerPage(up);
+                    O.setVisible(true); 
+                }
+            }else {
+                //login gagal
+                JOptionPane.showMessageDialog(this, "GAGAL Login\n"+"Username/Password tidak valid");
+                txtPass.requestFocus();
+            }
+            
+        } catch (SQLException e) {
+        }
+    }
 }
