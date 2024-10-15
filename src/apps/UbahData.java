@@ -13,12 +13,18 @@ import javax.swing.JOptionPane;
  *
  * @author LABKOM
  */
-public class TambahData extends javax.swing.JDialog {
+public class UbahData extends javax.swing.JDialog {
 
+    private int id;
+    private String FN;
+    private String US;
+    private String PS;
+    private String LV;
+    
     /**
      * Creates new form TambahData
      */
-    public TambahData(java.awt.Frame parent, boolean modal) {
+    public UbahData(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -45,6 +51,11 @@ public class TambahData extends javax.swing.JDialog {
         txtPass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setText("FULLNAME");
 
@@ -132,10 +143,10 @@ public class TambahData extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBatal, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
-        setSize(new java.awt.Dimension(447, 360));
+        setSize(new java.awt.Dimension(447, 374));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -154,24 +165,32 @@ public class TambahData extends javax.swing.JDialog {
         
         try {
             Connection K = Koneksi.Go();
-            String Q = "INSERT INTO users "
-                    + "(fullname,username,password,level) "
-                    + "VALUES (?,?,?,?)";
+            String Q = "UPDATE users "
+                    + "SET fullname=?,username=?,password=?,level=? WHERE id=?";
             PreparedStatement PS = K.prepareStatement(Q);
             PS.setString(1, name);
             PS.setString(2, user);
             PS.setString(3, pass);
             PS.setString(4, level);
+            PS.setInt(5, getId());
             PS.executeUpdate();
             
             AdminPage.viewData(""); 
-            JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
+            JOptionPane.showMessageDialog(this, "Data berhasil diubah");
             txtName.requestFocus();
         } catch (Exception e) {
             
         }
         
     }//GEN-LAST:event_btnSimpanActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        txtName.setText(getFN()); 
+        txtUser.setText(getUS());
+        txtPass.setText(getPS()); 
+        String LVx = getLV().substring(0, 1).toUpperCase() + getLV().substring(1); 
+        cmbLevel.setSelectedItem(LVx); 
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -190,21 +209,23 @@ public class TambahData extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TambahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UbahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TambahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UbahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TambahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UbahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TambahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UbahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TambahData dialog = new TambahData(new javax.swing.JFrame(), true);
+                UbahData dialog = new UbahData(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -229,4 +250,45 @@ public class TambahData extends javax.swing.JDialog {
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFN() {
+        return FN;
+    }
+    
+
+    public void setFN(String FN) {
+        this.FN = FN;
+    }
+
+    public String getUS() {
+        return US;
+    }
+
+    public void setUS(String US) {
+        this.US = US;
+    }
+
+    public String getPS() {
+        return PS;
+    }
+
+    public void setPS(String PS) {
+        this.PS = PS;
+    }
+
+    public String getLV() {
+        return LV;
+    }
+
+    public void setLV(String LV) {
+        this.LV = LV;
+    }
 }
