@@ -4,9 +4,11 @@
  */
 package apps;
 
+import java.awt.HeadlessException;
 import java.sql.Connection;
 //import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +25,8 @@ public class UbahData extends javax.swing.JDialog {
     
     /**
      * Creates new form TambahData
+     * @param parent
+     * @param modal
      */
     public UbahData(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -162,12 +166,12 @@ public class UbahData extends javax.swing.JDialog {
         String level = cmbLevel.getSelectedItem().toString();
         
         //pengecekan
-        
+        PreparedStatement PS;
         try {
             Connection K = Koneksi.Go();
             String Q = "UPDATE users "
                     + "SET fullname=?,username=?,password=?,level=? WHERE id=?";
-            PreparedStatement PS = K.prepareStatement(Q);
+            PS = K.prepareStatement(Q);
             PS.setString(1, name);
             PS.setString(2, user);
             PS.setString(3, pass);
@@ -178,7 +182,7 @@ public class UbahData extends javax.swing.JDialog {
             AdminPage.viewData(""); 
             JOptionPane.showMessageDialog(this, "Data berhasil diubah");
             txtName.requestFocus();
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
             
         }
         
