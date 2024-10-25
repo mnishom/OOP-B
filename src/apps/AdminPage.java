@@ -37,6 +37,7 @@ public class AdminPage extends javax.swing.JFrame {
         labelUser.setText(p.getFullname() + "(" + p.getLevel() + ")");
         
         viewData("");
+        viewDataProduct(""); 
         
     }
 
@@ -66,6 +67,16 @@ public class AdminPage extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -78,12 +89,13 @@ public class AdminPage extends javax.swing.JFrame {
         labelUser.setText(" ");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 818, Short.MAX_VALUE)
+            .addGap(0, 838, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,7 +139,7 @@ public class AdminPage extends javax.swing.JFrame {
                 txtKeyKeyReleased(evt);
             }
         });
-        jPanel7.add(txtKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 46));
+        jPanel7.add(txtKey, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 260, 40));
 
         jButton4.setText("Refresh");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -149,7 +161,7 @@ public class AdminPage extends javax.swing.JFrame {
                 .addComponent(btnHapus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 226, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 249, Short.MAX_VALUE)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -167,7 +179,7 @@ public class AdminPage extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel5, java.awt.BorderLayout.PAGE_START);
@@ -192,16 +204,75 @@ public class AdminPage extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Data User", new javax.swing.ImageIcon(getClass().getResource("/image/x24/Admin-icon-24.png")), jPanel2); // NOI18N
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 818, Short.MAX_VALUE)
+        jPanel3.setLayout(new java.awt.BorderLayout());
+
+        jButton3.setText("Tambah");
+
+        jButton5.setText("Ubah");
+
+        jButton6.setText("Hapus");
+
+        jButton7.setText("Refresh");
+
+        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/x24/search-icon-24.png"))); // NOI18N
+        jPanel8.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 12, 300, 30));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton7)
+                .addGap(119, 119, 119)
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 576, Short.MAX_VALUE)
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
+
+        jPanel3.add(jPanel6, java.awt.BorderLayout.PAGE_START);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "NO", "ID", "KODE PRODUK", "NAMA PRODUK", "GAMBAR", "KATEGORI", "SUPPLIER", "HARGA JUAL", "HARGA BELI", "STOK"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable2);
+
+        jPanel3.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         jTabbedPane1.addTab("Data Produk", jPanel3);
 
@@ -209,7 +280,7 @@ public class AdminPage extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 818, Short.MAX_VALUE)
+            .addGap(0, 838, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,6 +291,7 @@ public class AdminPage extends javax.swing.JFrame {
 
         getContentPane().add(jTabbedPane1, java.awt.BorderLayout.CENTER);
 
+        jMenu1.setMnemonic('F');
         jMenu1.setText("File");
 
         jMenuItem1.setText("Data User");
@@ -230,7 +302,8 @@ public class AdminPage extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem2.setText("jMenuItem2");
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem2.setText("Data Produk");
         jMenu1.add(jMenuItem2);
 
         jMenuBar1.add(jMenu1);
@@ -325,6 +398,10 @@ public class AdminPage extends javax.swing.JFrame {
             
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -365,9 +442,14 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JButton btnHapus;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
@@ -378,10 +460,15 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private static javax.swing.JTable jTable1;
+    private static javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelUser;
     private javax.swing.JTextField txtKey;
     // End of variables declaration//GEN-END:variables
@@ -413,4 +500,39 @@ public class AdminPage extends javax.swing.JFrame {
             //error handling
         }
     }
+    
+        public static void viewDataProduct(String where) {
+        try {
+            DefaultTableModel m = (DefaultTableModel) jTable2.getModel();
+            m.getDataVector().removeAllElements();
+            Connection K = Koneksi.Go();
+            Statement S = K.createStatement();
+            String Q = "SELECT * FROM products "+where;
+            ResultSet R = S.executeQuery(Q);
+            int n = 1;
+            while (R.next()) {                 
+                int id = R.getInt("id");
+                 	 	 	 	 	 	 	 	
+                String product_code = R.getString("product_code");
+                String product_name = R.getString("product_name");
+                String product_image = R.getString("product_image");                
+                int product_category = R.getInt("product_category");
+                int product_supplier = R.getInt("product_supplier");
+                double product_price_s = R.getDouble("product_price_s");
+                double product_price_b = R.getDouble("product_price_b");
+                int product_stock = R.getInt("product_stock");
+                Object[] data = {n, id,product_code, product_name, product_image,
+                        product_category, product_supplier, product_price_s, product_price_b, product_stock};
+                m.addRow(data); 
+                n++;
+            }
+            
+            jTable1.getColumnModel().getColumn(0).setMinWidth(0);
+            jTable1.getColumnModel().getColumn(0).setMaxWidth(0);
+            
+        } catch (Exception e) {
+            //error handling
+        }
+    }
+    
 }
