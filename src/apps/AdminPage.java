@@ -74,7 +74,7 @@ public class AdminPage extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        keyProduct = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -89,7 +89,6 @@ public class AdminPage extends javax.swing.JFrame {
         labelUser.setText(" ");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -219,12 +218,17 @@ public class AdminPage extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/x24/search-icon-24.png"))); // NOI18N
         jPanel8.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        keyProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                keyProductActionPerformed(evt);
             }
         });
-        jPanel8.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 12, 300, 30));
+        keyProduct.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                keyProductKeyReleased(evt);
+            }
+        });
+        jPanel8.add(keyProduct, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 12, 300, 30));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -398,9 +402,21 @@ public class AdminPage extends javax.swing.JFrame {
             
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void keyProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_keyProductActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_keyProductActionPerformed
+
+    private void keyProductKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_keyProductKeyReleased
+        // TODO add your handling code here:
+        String key = keyProduct.getText();
+        String w = "WHERE "
+                + "product_name LIKE '%"+key+"%' "
+                + "OR product_category LIKE '%"+key+"%' "
+                + "OR product_supplier LIKE '%"+key+"%' "
+                + "OR product_price_s LIKE '%"+key+"%'";
+        
+        viewDataProduct(w); 
+    }//GEN-LAST:event_keyProductKeyReleased
 
     /**
      * @param args the command line arguments
@@ -432,6 +448,7 @@ public class AdminPage extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new AdminPage().setVisible(true);
             }
@@ -468,7 +485,7 @@ public class AdminPage extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private static javax.swing.JTable jTable1;
     private static javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField keyProduct;
     private javax.swing.JLabel labelUser;
     private javax.swing.JTextField txtKey;
     // End of variables declaration//GEN-END:variables
@@ -504,7 +521,11 @@ public class AdminPage extends javax.swing.JFrame {
         public static void viewDataProduct(String where) {
         try {
             DefaultTableModel m = (DefaultTableModel) jTable2.getModel();
-            m.getDataVector().removeAllElements();
+            //m.getDataVector().removeAllElements();
+            for (int i = m.getRowCount()-1; i >=0; i--) {
+                m.removeRow(i); 
+            }
+            
             Connection K = Koneksi.Go();
             Statement S = K.createStatement();
             String Q = "SELECT * FROM products "+where;

@@ -4,9 +4,19 @@
  */
 package apps;
 
+import java.awt.HeadlessException;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.sql.Connection;
 //import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,6 +25,10 @@ import javax.swing.JOptionPane;
  */
 public class TambahData extends javax.swing.JDialog {
 
+    
+    
+    
+    
     /**
      * Creates new form TambahData
      */
@@ -156,7 +170,8 @@ public class TambahData extends javax.swing.JDialog {
             Connection K = Koneksi.Go();
             String Q = "INSERT INTO users "
                     + "(fullname,username,password,level) "
-                    + "VALUES (?,?,?,?)";
+                    + "VALUES (?,?,?,?)";            
+            
             PreparedStatement PS = K.prepareStatement(Q);
             PS.setString(1, name);
             PS.setString(2, user);
@@ -165,9 +180,20 @@ public class TambahData extends javax.swing.JDialog {
             PS.executeUpdate();
             
             AdminPage.viewData(""); 
+            
+            //format tanggal
+            Date d = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy H:m:s z");
+            String tanggal = sdf.format(d);
+            
+            
+            Functions.logActivity("\n["+tanggal+"] Penambahan user baru berhasil "); 
             JOptionPane.showMessageDialog(this, "Data berhasil disimpan");
             txtName.requestFocus();
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
+            Functions.logActivity("""
+                                  Erro Code: 1123
+                                  """+e.getMessage());  
             
         }
         
@@ -177,42 +203,15 @@ public class TambahData extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+       java.awt.EventQueue.invokeLater(() -> {
+            TambahData dialog = new TambahData(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
                 }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TambahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TambahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TambahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TambahData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TambahData dialog = new TambahData(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+            });
+            dialog.setVisible(true);
         });
     }
 
@@ -229,4 +228,8 @@ public class TambahData extends javax.swing.JDialog {
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+
+ 
+
+
 }
