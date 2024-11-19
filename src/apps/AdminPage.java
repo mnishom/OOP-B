@@ -206,6 +206,11 @@ public class AdminPage extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.BorderLayout());
 
         jButton3.setText("Tambah");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Ubah");
 
@@ -417,6 +422,11 @@ public class AdminPage extends javax.swing.JFrame {
         
         viewDataProduct(w); 
     }//GEN-LAST:event_keyProductKeyReleased
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        TambahProduk TP = new TambahProduk(this, true);
+        TP.setVisible(true); 
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
